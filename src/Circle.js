@@ -1,9 +1,10 @@
 import React from 'react';
-import './App.css'
+import './Circle.css'
 
 const Circle = (props) => {
+  const circleClass = props.active ? 'circle active' : 'circle';
   return (
-    <div className='circle' onClick={props.click}>
+    <div className={circleClass} style={{ backgroundColor: 'blue' }} onClick={props.click}>
     </div>
 
   );

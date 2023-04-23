@@ -1,0 +1,21 @@
+.modal {
+  background-color: white;
+  height: 30vh;
+  width: 50vw;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 2rem;
+  width: 2rem;
+  text-align: center;
+}
+
+.overlay span {
+  display: inline-block;
+}
