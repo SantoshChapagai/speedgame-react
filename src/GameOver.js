@@ -1,6 +1,6 @@
 import React from 'react';
-import './Modal.css'
-const Modal = (props) => {
+import './GameOver.css'
+const GameOver = (props) => {
   return (
     <div className='modal'>
       <div className='overlay'>
@@ -13,4 +13,4 @@ const Modal = (props) => {
   );
 };
 
-export default Modal;
+export default GameOver;

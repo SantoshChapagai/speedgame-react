@@ -2,66 +2,67 @@ import React from 'react'
 import './App.css';
 import Circle from './Circle';
 import { Component } from 'react';
-import Modal from './Modal';
+import GameOver from './GameOver';
 
 
-const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+// const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 class App extends Component {
   state = {
+    circles: [1, 2, 3, 4],
     score: 0,
     current: 0,
-    circles: [1, 2, 3, 4],
     speed: 2000,
-    rounds: 0,
+    timer: '',
     showGameOver: false,
-    gameStarted: false,
-    lives: 5,
-    start: false
+    gameStart: false,
+    rounds: 0
+
 
   };
-  timer;
-  nextCircle = () => {
-    if (this.state.lives <= 0) {
-      this.endGame();
-    }
-    let activeCircle;
+  nextActive = () => {
+    let nextActive;
     do {
-      activeCircle = randomNumber(0, this.state.circles.length - 1);
-    } while (activeCircle === this.state.current);
-    this.setState({
-      current: activeCircle
-    })
+      nextActive = Math.floor(Math.random() * this.state.circles.length) + 1;
+    } while (nextActive === this.state.current);
+    this.setState({ current: nextActive });
   }
 
-  clickHandler = () => {
-    this.setState({
-      score: this.state.score + 10
-    });
 
-  }
-  startGame = () => {
-    if (this.state.lives === 0) {
-      this.endGame();
+  clickHandler = (circleId) => {
+    if (circleId === this.state.current) {
+      this.setState({
+        score: this.state.score + 10,
+        rounds: this.state.rounds + 1
+      });
+      if (this.state.rounds === 5) {
+        this.endHandler();
+      }
     } else {
       this.setState({
-        gameStarted: true,
-        start: !this.state.start
+        rounds: 0
       });
-      this.timer = setInterval(this.nextActive, this.state.speed);
+      this.endHandler();
     }
+  }
+  startHandler = () => {
+    this.setState({
+      gameStart: true,
+      timer: setTimeout(() => {
+        this.nextActive();
+        this.clickHandler();
+      }, this.state.speed),
+    });
 
   }
 
-  endGame = () => {
+  endHandler = () => {
     clearInterval(this.timer);
     this.setState({
+      timer: this.state.timer,
       showGameOver: true,
-      rounds: this.state.rounds + 1
+      rounds: 0
     });
-    if (this.state.rounds === 5) {
-      this.closeHandler();
-    }
   }
   closeHandler = () => {
     window.location.reload();
@@ -78,14 +79,13 @@ class App extends Component {
         </div>
         <div className='circles'>
           {this.state.circles.map((circle) => (<Circle
-            key={circle.id}
-            id={circle.id}
-            active={circle.active}
-            disabled={this.state.current === 0}
+            key={circle}
+            circle={circle}
+            active={this.nextActive}
             click={this.clickHandler} />))}
         </div>
         <div>
-          {this.state.showGameOver && <Modal
+          {this.state.showGameOver && <GameOver
             score={this.state.score}
             message={
               this.state.score <= 100 ? `Your score was ${this.state.score}, Try hard to score more.` : this.state.score <= 200 ? `Your score was ${this.state.score}, You're improving yourself.` : `Your score was ${this.state.score}, You set the bar high.`
@@ -95,8 +95,8 @@ class App extends Component {
           }
         </div>
         <div className='btn'>
-          <button onClick={this.startGame}>start</button>
-          <button onClick={this.endGame}>end</button>
+          <button onClick={this.startHandler} disabled={this.state.timer !== ''}>start</button>
+          <button onClick={this.endHandler}>end</button>
         </div>
       </div>
     );

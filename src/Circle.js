@@ -2,9 +2,14 @@ import React from 'react';
 import './Circle.css'
 
 const Circle = (props) => {
-  const circleClass = props.active ? 'circle active' : 'circle';
+  const circleStyle = {
+    color: "red"
+  }
   return (
-    <div className={circleClass} style={{ backgroundColor: 'blue' }} onClick={props.click}>
+    <div className='circle' onClick={props.click} style={circleStyle}>
+
+
+      {/* style={{ pointerEvents: props.activeEvent ? "all" : "none" }} */}
     </div>
 
   );
