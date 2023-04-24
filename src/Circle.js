@@ -2,14 +2,14 @@ import React from 'react';
 import './Circle.css'
 
 const Circle = (props) => {
-  const circleStyle = {
-    color: "red"
-  }
   return (
-    <div className='circle' onClick={props.click} style={circleStyle}>
+    <div className='circle'>
+      <div className={`click ${props.active ? "active" : ""}`}
+        onClick={props.click}
+        style={{ pointerEvents: props.activeEvent ? "all" : "none" }}
+      >
 
-
-      {/* style={{ pointerEvents: props.activeEvent ? "all" : "none" }} */}
+      </div>
     </div>
 
   );

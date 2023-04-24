@@ -13,29 +13,33 @@ class App extends Component {
     score: 0,
     current: 0,
     speed: 2000,
-    timer: '',
     showGameOver: false,
     gameStart: false,
-    rounds: 0
+    rounds: 0,
+    color: 'pink'
 
 
   };
-  nextActive = () => {
+  timer;
+  randomNumber = () => {
     let nextActive;
     do {
-      nextActive = Math.floor(Math.random() * this.state.circles.length) + 1;
+      nextActive = Math.floor(Math.random() * 4) + 1;
     } while (nextActive === this.state.current);
-    this.setState({ current: nextActive });
+    const colors = ['blue', 'red', 'green', 'yellow'];
+    const newColor = colors[Math.floor(Math.random() * colors.length)];
+    this.setState({ current: nextActive, color: newColor });
+    console.log("active is", nextActive, newColor);
   }
 
 
-  clickHandler = (circleId) => {
-    if (circleId === this.state.current) {
+  clickHandler = (circle) => {
+    if (circle === this.state.current) {
       this.setState({
         score: this.state.score + 10,
         rounds: this.state.rounds + 1
       });
-      if (this.state.rounds === 5) {
+      if (this.state.rounds >= 5) {
         this.endHandler();
       }
     } else {
@@ -48,18 +52,15 @@ class App extends Component {
   startHandler = () => {
     this.setState({
       gameStart: true,
-      timer: setTimeout(() => {
-        this.nextActive();
-        this.clickHandler();
-      }, this.state.speed),
     });
+    this.timer = setInterval(this.randomNumber, this.state.speed);
 
   }
 
   endHandler = () => {
     clearInterval(this.timer);
     this.setState({
-      timer: this.state.timer,
+      timer: this.timer,
       showGameOver: true,
       rounds: 0
     });
@@ -81,7 +82,8 @@ class App extends Component {
           {this.state.circles.map((circle) => (<Circle
             key={circle}
             circle={circle}
-            active={this.nextActive}
+            color={this.state.current === circle ? this.state.color : 'purple'}
+            active={this.state.current === circle}
             click={this.clickHandler} />))}
         </div>
         <div>
@@ -95,14 +97,13 @@ class App extends Component {
           }
         </div>
         <div className='btn'>
-          <button onClick={this.startHandler} disabled={this.state.timer !== ''}>start</button>
-          <button onClick={this.endHandler}>end</button>
+          <button onClick={this.startHandler}
+            disabled={this.timer}>start</button>
+          <button onClick={this.endHandler} disabled={!this.timer}>end</button>
         </div>
       </div>
     );
   }
 }
-
-
 
 export default App;
