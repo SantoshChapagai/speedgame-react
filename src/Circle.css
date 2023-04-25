@@ -7,6 +7,22 @@
   cursor: pointer;
 }
 
-.circle .active {
+.circle:nth-child(1) {
+  background-color: rgb(47, 47, 108);
+}
+
+.circle:nth-child(2) {
+  background-color: greenyellow;
+}
+
+.circle:nth-child(3) {
+  background-color: red;
+}
+
+.circle:nth-child(4) {
+  background-color: pink;
+}
+
+.circle.active {
   background: url('https://media.istockphoto.com/id/149075263/photo/angry-dog-with-bared-teeth.jpg?b=1&s=170667a&w=0&k=20&c=PW2DafySTvceNND3-jT16KAB_AEzEZiQzKxKzny7A58=')no-repeat center center/cover;
 }
