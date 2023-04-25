@@ -42,10 +42,9 @@ class App extends Component {
   }
 
   clickHandler = (index) => {
+    console.log(index)
     if (index !== this.state.current) {
       this.endHandler();
-
-
 
       /*       if (this.state.rounds >= 5) {
               return this.endHandler();
@@ -71,6 +70,10 @@ class App extends Component {
     this.timer = setInterval(this.randomNumber, this.state.speed);
     if (this.state.rounds >= 5) {
       this.endHandler()
+    } else {
+      this.setState({
+        rounds: 0
+      })
     }
 
   }
