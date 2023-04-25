@@ -6,15 +6,15 @@ import GameOver from './GameOver';
 import './Circle.css'
 
 
-// import bark from './sounds/dogbark.mp3';
-// import click from './sounds/click.mp3';
-// import start from './sounds/start.mp3';
-// import end from './sounds/end.mp3';
+import bark from './sounds/dogbark.mp3';
+import click from './sounds/click.mp3';
+import start from './sounds/start.mp3';
+import end from './sounds/end.mp3';
 
-// const dogBark = new Audio(bark);
-// const clicks = new Audio(click);
-// const started = new Audio(start);
-// const ended = new Audio(end);
+const dogBark = new Audio(bark);
+const clicked = new Audio(click);
+const started = new Audio(start);
+const ended = new Audio(end);
 
 
 const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
@@ -45,22 +45,28 @@ class App extends Component {
       if (this.state.rounds >= 5) {
         this.endHandler();
       } else {
+        started.pause();
+        dogBark.play();
         this.setState({ current: nextActive });
       }
     }
   }
 
   clickHandler = (index) => {
+    clicked.play();
     if (index !== this.state.current) {
       this.endHandler();
     } else {
       this.setState({
-        score: this.state.score + 10
+        score: this.state.score + 10,
+        rounds: 0
+
       });
     }
   }
 
   startHandler = () => {
+    started.play();
     this.setState({
       gameStart: true,
       speed: this.state.speed - 10,
@@ -76,11 +82,11 @@ class App extends Component {
   }
 
   endHandler = () => {
+    started.pause();
+    ended.play();
     clearInterval(this.timer);
     this.setState({
-      // timer: this.timer,
       showGameOver: true,
-      // rounds: 0
     });
   }
   closeHandler = () => {
