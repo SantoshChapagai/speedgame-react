@@ -3,6 +3,7 @@ import './App.css';
 import Circle from './Circle';
 import { Component } from 'react';
 import GameOver from './GameOver';
+import './Circle.css'
 
 
 // import bark from './sounds/dogbark.mp3';
@@ -16,7 +17,7 @@ import GameOver from './GameOver';
 // const ended = new Audio(end);
 
 
-// const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 class App extends Component {
   state = {
@@ -26,23 +27,25 @@ class App extends Component {
     speed: 2000,
     showGameOver: false,
     gameStart: false,
-    rounds: 0
+    rounds: 0,
+    activeColor: 'bisque'
   };
 
   timer;
 
-  randomNumber = () => {
+  randomCircle = () => {
     let nextActive;
 
     do {
-      nextActive = Math.floor(Math.random() * 4) + 1;
+      nextActive = randomNumber(1, 4);
     } while (nextActive === this.state.current);
+
     this.setState({ current: nextActive });
     console.log("active is", nextActive);
   }
 
   clickHandler = (index) => {
-    console.log(index)
+    // console.log(index)
     if (index !== this.state.current) {
       this.endHandler();
 
@@ -57,7 +60,7 @@ class App extends Component {
     } else {
       this.setState({
         score: this.state.score + 10,
-        // rounds: this.state.rounds
+        rounds: this.state.rounds
       });
     }
   }
@@ -65,10 +68,9 @@ class App extends Component {
     this.setState({
       gameStart: true,
       speed: this.state.speed - 10,
-      current: this.state.color
     });
-    this.timer = setInterval(this.randomNumber, this.state.speed);
-    if (this.state.rounds >= 5) {
+    this.timer = setInterval(this.randomCircle, this.state.speed);
+    if (this.state.rounds === 5) {
       this.endHandler()
     } else {
       this.setState({
@@ -111,8 +113,9 @@ class App extends Component {
         <div className='circles'>
           {this.state.circles.map((circle) => (<Circle
             key={circle}
-            index={circle - 1}
-            click={this.clickHandler}
+            index={circle}
+            click={() => this.clickHandler(circle)}
+            class={this.state.current === circle ? "circle active" : "circle"}
           />))}
         </div>
         <div>
