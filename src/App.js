@@ -28,7 +28,6 @@ class App extends Component {
     showGameOver: false,
     gameStart: false,
     rounds: 0,
-    activeColor: 'bisque'
   };
 
   timer;
@@ -39,46 +38,36 @@ class App extends Component {
     do {
       nextActive = randomNumber(1, 4);
     } while (nextActive === this.state.current);
-
-    this.setState({ current: nextActive });
-    console.log("active is", nextActive);
+    if (nextActive !== this.state.current) {
+      this.setState({
+        rounds: this.state.rounds + 1
+      });
+      if (this.state.rounds >= 5) {
+        this.endHandler();
+      } else {
+        this.setState({ current: nextActive });
+      }
+    }
   }
 
   clickHandler = (index) => {
-    // console.log(index)
     if (index !== this.state.current) {
       this.endHandler();
-
-      /*       if (this.state.rounds >= 5) {
-              return this.endHandler();
-            } */
-      // } else {
-      //   this.setState({
-      //     rounds: 0
-      //   });
-      // this.endHandler();
     } else {
       this.setState({
-        score: this.state.score + 10,
-        rounds: this.state.rounds
+        score: this.state.score + 10
       });
     }
   }
+
   startHandler = () => {
     this.setState({
       gameStart: true,
       speed: this.state.speed - 10,
     });
     this.timer = setInterval(this.randomCircle, this.state.speed);
-    if (this.state.rounds === 5) {
-      this.endHandler()
-    } else {
-      this.setState({
-        rounds: 0
-      })
-    }
-
   }
+
   playAgain = () => {
     this.setState({
       showGameOver: false
@@ -93,14 +82,10 @@ class App extends Component {
       showGameOver: true,
       // rounds: 0
     });
-    if (this.state.rounds >= 5) {
-
-    }
   }
   closeHandler = () => {
     window.location.reload();
   }
-
   render() {
     return (
       <div className="App">
