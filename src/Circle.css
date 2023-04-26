@@ -23,6 +23,14 @@
   background-color: pink;
 }
 
+.circle:nth-child(5) {
+  background-color: navajowhite;
+}
+
+.circle:nth-child(6) {
+  background-color: deepskyblue;
+}
+
 .circle.active {
   background: url('https://media.istockphoto.com/id/1154370773/fi/valokuva/muotokuva-kauniista-kissasta-scottish-straight-l%C3%A4hikuva-eristetty-valkoisella-taustalla.jpg?s=612x612&w=0&k=20&c=-FT6eYNNN75RqzdCYSKz8BApOfcFE7Q0WPny31teyTQ=')no-repeat center center/cover;
 }

@@ -22,15 +22,32 @@ const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) +
 
 class App extends Component {
   state = {
-    circles: [1, 2, 3, 4],
+    circles: [],
     score: 0,
     current: 0,
     speed: 2000,
     showGameOver: false,
     gameStart: false,
     rounds: 0,
-    timer: null
+    timer: null,
+    level: null,
+    selectedLevel: false
   };
+  setLevel = (level) => {
+    let circles = [];
+    if (level === 'easy') {
+      circles = [1, 2, 3, 4];
+    } else if (level === 'medium') {
+      circles = [1, 2, 3, 4, 5];
+    } else if (level === 'hard') {
+      circles = [1, 2, 3, 4, 5, 6];
+    }
+    this.setState({
+      circles,
+      level,
+      selectedLevel: true
+    })
+  }
 
 
   randomCircle = () => {
@@ -78,8 +95,10 @@ class App extends Component {
 
   // handler to start the game directly from modal
   playAgain = () => {
+    clearInterval(this.state.timer);
     this.setState({
-      showGameOver: false
+      showGameOver: false,
+      score: 0
     });
     this.startHandler();
   }
@@ -102,8 +121,13 @@ class App extends Component {
         <div>
           <h1>Speed Game</h1>
         </div>
-        <div>
+        <div hidden={!this.state.gameStart}>
           <p>score: <span>{this.state.score}</span></p>
+        </div>
+        <div className='level_button'>
+          <button onClick={() => this.setLevel('easy')} hidden={this.state.gameStart}>Easy</button>
+          <button onClick={() => this.setLevel('medium')} hidden={this.state.gameStart}>Medium</button>
+          <button onClick={() => this.setLevel('hard')} hidden={this.state.gameStart}>Hard</button>
         </div>
         <div className='circles'>
           {this.state.circles.map((circle) => (<Circle
@@ -124,11 +148,12 @@ class App extends Component {
           />
           }
         </div>
-        <div className='btn'>
+        {this.state.selectedLevel && <div className='btn'>
           <button onClick={this.startHandler}
             hidden={this.state.gameStart}>start</button>
           <button onClick={this.endHandler} hidden={!this.state.gameStart}>end</button>
         </div>
+        }
       </div>
     );
   }

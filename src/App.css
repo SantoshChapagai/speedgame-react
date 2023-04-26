@@ -29,3 +29,9 @@ button {
   background: linear-gradient(rgb(240, 170, 146), rgb(234, 56, 56), rgb(224, 67, 174));
   height: 100vh;
 }
+
+.level_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
