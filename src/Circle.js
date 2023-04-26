@@ -4,8 +4,12 @@ import './Circle.css'
 const Circle = (props) => {
   return (
     <div className={props.class}
-      onClick={props.click}>
-    </div>
+      onClick={props.click}
+      style={{
+        pointerEvents: props.pointerToggle ? 'auto' : 'none'
+      }}
+    >
+    </div >
   );
 
 }

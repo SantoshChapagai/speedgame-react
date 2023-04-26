@@ -31,7 +31,7 @@ class App extends Component {
     rounds: 0,
     timer: null,
     level: null,
-    selectedLevel: false
+    selectedLevel: false,
   };
   setLevel = (level) => {
     let circles = [];
@@ -60,7 +60,7 @@ class App extends Component {
       this.setState({
         rounds: this.state.rounds + 1
       });
-      if (this.state.rounds >= 5) {
+      if (this.state.rounds >= 3) {
         this.endHandler();
       } else {
         meowed.play();
@@ -119,21 +119,28 @@ class App extends Component {
     return (
       <div className="App">
         <div>
-          <h1>Speed Game</h1>
+          <h1>Speed Game!</h1>
         </div>
         <div hidden={!this.state.gameStart}>
+          <h4>Currently you are playing: {this.state.level} level </h4>
           <p>score: <span>{this.state.score}</span></p>
         </div>
-        <div className='level_button'>
-          <button onClick={() => this.setLevel('easy')} hidden={this.state.gameStart}>Easy</button>
-          <button onClick={() => this.setLevel('medium')} hidden={this.state.gameStart}>Medium</button>
-          <button onClick={() => this.setLevel('hard')} hidden={this.state.gameStart}>Hard</button>
+        <div>
+          <div>
+            <h3 hidden={this.state.gameStart}>Select the difficulty level</h3>
+          </div>
+          <div className='level_button'>
+            <button onClick={() => this.setLevel('easy')} hidden={this.state.gameStart}>Easy</button>
+            <button onClick={() => this.setLevel('medium')} hidden={this.state.gameStart}>Medium</button>
+            <button onClick={() => this.setLevel('hard')} hidden={this.state.gameStart}>Hard</button>
+          </div>
         </div>
         <div className='circles'>
           {this.state.circles.map((circle) => (<Circle
             key={circle}
             index={circle}
             click={() => this.clickHandler(circle)}
+            ponterToggle={!this.state.gameStart}
             class={this.state.current === circle ? "circle active" : "circle"}
           />))}
         </div>
