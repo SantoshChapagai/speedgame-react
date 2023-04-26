@@ -30,5 +30,6 @@
 .play {
   position: absolute;
   bottom: 0;
-  width: 50%;
+  right: 35%;
+  width: 30%;
 }

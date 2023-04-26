@@ -125,7 +125,6 @@ class App extends Component {
       level: null,
       selectedLevel: false
     });
-    // window.location.reload();
   }
   render() {
     return (
@@ -138,7 +137,7 @@ class App extends Component {
           <p>score: <span>{this.state.score}</span></p>
         </div>
         <div>
-          <div>
+          <div className='level'>
             <h3 hidden={this.state.gameStart}>Select the difficulty level</h3>
           </div>
           <div className='level_button'>
