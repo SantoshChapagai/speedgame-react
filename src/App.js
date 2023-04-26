@@ -31,7 +31,7 @@ class App extends Component {
     rounds: 0,
     timer: null,
     level: null,
-    selectedLevel: false,
+    selectedLevel: false
   };
   setLevel = (level) => {
     let circles = [];
@@ -113,7 +113,19 @@ class App extends Component {
     });
   }
   closeHandler = () => {
-    window.location.reload();
+    this.setState({
+      circles: [],
+      score: 0,
+      current: 0,
+      speed: 2000,
+      showGameOver: false,
+      gameStart: false,
+      rounds: 0,
+      timer: null,
+      level: null,
+      selectedLevel: false
+    });
+    // window.location.reload();
   }
   render() {
     return (
@@ -140,7 +152,7 @@ class App extends Component {
             key={circle}
             index={circle}
             click={() => this.clickHandler(circle)}
-            ponterToggle={!this.state.gameStart}
+            pointerToggle={this.state.gameStart}
             class={this.state.current === circle ? "circle active" : "circle"}
           />))}
         </div>
