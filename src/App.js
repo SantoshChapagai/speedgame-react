@@ -17,9 +17,6 @@ const clicked = new Audio(click);
 const started = new Audio(start);
 const ended = new Audio(end);
 
-
-
-
 class App extends Component {
   state = {
     circles: [],
@@ -33,8 +30,8 @@ class App extends Component {
     level: null,
     selectedLevel: false
   };
-  randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
+  randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
   setLevel = (level) => {
     let circles = [];
@@ -52,10 +49,8 @@ class App extends Component {
     })
   }
 
-
   randomCircle = () => {
     let nextActive;
-
     do {
       nextActive = this.randomNumber(1, this.state.circles.length);
     } while (nextActive === this.state.current);
@@ -76,7 +71,7 @@ class App extends Component {
   clickHandler = (index) => {
     clicked.play();
     if (index !== this.state.current) {
-      this.endHandler();
+      return this.endHandler();
     } else {
       this.setState({
         score: this.state.score + 10,
@@ -85,6 +80,7 @@ class App extends Component {
       });
     }
   }
+
   //handler to operates game after pressing start button
   startHandler = () => {
     started.play();
