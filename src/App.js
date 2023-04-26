@@ -59,7 +59,6 @@ class App extends Component {
     do {
       nextActive = this.randomNumber(1, this.state.circles.length);
     } while (nextActive === this.state.current);
-    console.log('active is', nextActive);
     if (nextActive !== this.state.current) {
       this.setState({
         rounds: this.state.rounds + 1
@@ -68,7 +67,7 @@ class App extends Component {
         this.endHandler();
       } else {
         meowed.play();
-        this.setState({ current: nextActive });
+        this.setState({ current: nextActive, speed: this.state.speed - 10 });
       }
     }
   }
@@ -91,7 +90,6 @@ class App extends Component {
     started.play();
     this.setState({
       gameStart: true,
-      speed: this.state.speed - 10,
       timer: setInterval(this.randomCircle, this.state.speed)
     });
 
