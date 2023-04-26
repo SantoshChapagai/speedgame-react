@@ -18,7 +18,7 @@ const started = new Audio(start);
 const ended = new Audio(end);
 
 
-const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
 
 class App extends Component {
   state = {
@@ -33,6 +33,9 @@ class App extends Component {
     level: null,
     selectedLevel: false
   };
+  randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+
   setLevel = (level) => {
     let circles = [];
     if (level === 'easy') {
@@ -54,8 +57,9 @@ class App extends Component {
     let nextActive;
 
     do {
-      nextActive = randomNumber(1, 4);
+      nextActive = this.randomNumber(1, this.state.circles.length);
     } while (nextActive === this.state.current);
+    console.log('active is', nextActive);
     if (nextActive !== this.state.current) {
       this.setState({
         rounds: this.state.rounds + 1
