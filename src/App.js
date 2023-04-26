@@ -5,13 +5,14 @@ import { Component } from 'react';
 import GameOver from './GameOver';
 import './Circle.css'
 
-
-import bark from './sounds/dogbark.mp3';
+// importing sounds
+import meow from './sounds/meow.mp3';
 import click from './sounds/click.mp3';
 import start from './sounds/start.mp3';
 import end from './sounds/end.mp3';
 
-const dogBark = new Audio(bark);
+// Adding sounds to handler
+const meowed = new Audio(meow);
 const clicked = new Audio(click);
 const started = new Audio(start);
 const ended = new Audio(end);
@@ -28,9 +29,9 @@ class App extends Component {
     showGameOver: false,
     gameStart: false,
     rounds: 0,
+    timer: null
   };
 
-  timer;
 
   randomCircle = () => {
     let nextActive;
@@ -45,13 +46,13 @@ class App extends Component {
       if (this.state.rounds >= 5) {
         this.endHandler();
       } else {
-        started.pause();
-        dogBark.play();
+        meowed.play();
         this.setState({ current: nextActive });
       }
     }
   }
 
+  // handler to the click circle
   clickHandler = (index) => {
     clicked.play();
     if (index !== this.state.current) {
@@ -64,16 +65,18 @@ class App extends Component {
       });
     }
   }
-
+  //handler to operates game after pressing start button
   startHandler = () => {
     started.play();
     this.setState({
       gameStart: true,
       speed: this.state.speed - 10,
+      timer: setInterval(this.randomCircle, this.state.speed)
     });
-    this.timer = setInterval(this.randomCircle, this.state.speed);
+
   }
 
+  // handler to start the game directly from modal
   playAgain = () => {
     this.setState({
       showGameOver: false
@@ -81,10 +84,11 @@ class App extends Component {
     this.startHandler();
   }
 
+  // handler to end the game
   endHandler = () => {
     started.pause();
     ended.play();
-    clearInterval(this.timer);
+    clearInterval(this.state.timer);
     this.setState({
       showGameOver: true,
     });
@@ -122,8 +126,8 @@ class App extends Component {
         </div>
         <div className='btn'>
           <button onClick={this.startHandler}
-            hidden={this.timer}>start</button>
-          <button onClick={this.endHandler} hidden={!this.timer}>end</button>
+            hidden={this.state.gameStart}>start</button>
+          <button onClick={this.endHandler} hidden={!this.state.gameStart}>end</button>
         </div>
       </div>
     );
