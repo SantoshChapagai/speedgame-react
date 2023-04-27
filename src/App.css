@@ -45,3 +45,23 @@ button {
   justify-content: center;
   align-items: center;
 }
+
+.level_button button {
+  color: white;
+  height: 3rem;
+  width: 8rem;
+  font-size: larger;
+  border-radius: 5px;
+}
+
+.easy {
+  background-color: rgb(10, 163, 10);
+}
+
+.medium {
+  background-color: rgb(145, 97, 6);
+}
+
+.hard {
+  background-color: red;
+}

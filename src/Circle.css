@@ -5,6 +5,7 @@
   background-color: bisque;
   margin: 1rem;
   cursor: pointer;
+  box-shadow: 0 0 10px orange;
 }
 
 .circle:nth-child(1) {

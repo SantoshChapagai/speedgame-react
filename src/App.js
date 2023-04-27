@@ -144,9 +144,9 @@ class App extends Component {
             {!this.state.gameStart && <h3>Select the difficulty level</h3>}
           </div>
           {!this.state.gameStart && <div className='level_button'>
-            <button onClick={() => this.setLevel('easy')}>Easy</button>
-            <button onClick={() => this.setLevel('medium')}>Medium</button>
-            <button onClick={() => this.setLevel('hard')}>Hard</button>
+            <button className='easy' onClick={() => this.setLevel('easy')}>Easy</button>
+            <button className='medium' onClick={() => this.setLevel('medium')}>Medium</button>
+            <button className='hard' onClick={() => this.setLevel('hard')}>Hard</button>
           </div>}
         </div>
         <div className='circles'>
