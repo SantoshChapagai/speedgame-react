@@ -96,7 +96,8 @@ class App extends Component {
     clearInterval(this.state.timer);
     this.setState({
       showGameOver: false,
-      score: 0
+      score: 0,
+      rounds: 0
     });
     this.startHandler();
   }
@@ -104,6 +105,7 @@ class App extends Component {
   // handler to end the game
   endHandler = () => {
     started.pause();
+    meowed.pause();
     ended.play();
     clearInterval(this.state.timer);
     this.setState({
@@ -136,13 +138,13 @@ class App extends Component {
         </div>
         <div>
           <div className='level'>
-            <h3 hidden={this.state.gameStart}>Select the difficulty level</h3>
+            {!this.state.gameStart && <h3>Select the difficulty level</h3>}
           </div>
-          <div className='level_button'>
-            <button onClick={() => this.setLevel('easy')} hidden={this.state.gameStart}>Easy</button>
-            <button onClick={() => this.setLevel('medium')} hidden={this.state.gameStart}>Medium</button>
-            <button onClick={() => this.setLevel('hard')} hidden={this.state.gameStart}>Hard</button>
-          </div>
+          {!this.state.gameStart && <div className='level_button'>
+            <button onClick={() => this.setLevel('easy')}>Easy</button>
+            <button onClick={() => this.setLevel('medium')}>Medium</button>
+            <button onClick={() => this.setLevel('hard')}>Hard</button>
+          </div>}
         </div>
         <div className='circles'>
           {this.state.circles.map((circle) => (<Circle
@@ -165,9 +167,8 @@ class App extends Component {
           }
         </div>
         {this.state.selectedLevel && <div className='btn'>
-          <button onClick={this.startHandler}
-            hidden={this.state.gameStart}>start</button>
-          <button onClick={this.endHandler} hidden={!this.state.gameStart}>end</button>
+          {!this.state.gameStart && <button onClick={this.startHandler}>start</button>}
+          {this.state.gameStart && <button onClick={this.endHandler}>end</button>}
         </div>
         }
       </div>
