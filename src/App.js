@@ -61,6 +61,7 @@ class App extends Component {
       if (this.state.rounds >= 3) {
         this.endHandler();
       } else {
+        started.pause();
         meowed.play();
         this.setState({ current: nextActive, speed: this.state.speed - 10 });
       }
@@ -95,13 +96,13 @@ class App extends Component {
   // handler to start the game directly from modal
   playAgain = () => {
     this.startHandler();
-    this.randomCircle();
     clearInterval(this.state.timer);
     this.setState({
       showGameOver: false,
       score: 0,
       rounds: 0
     });
+    this.randomCircle();
   }
 
   // handler to end the game
