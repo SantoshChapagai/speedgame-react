@@ -71,6 +71,7 @@ class App extends Component {
   clickHandler = (index) => {
     clicked.play();
     if (index !== this.state.current) {
+      clicked.pause();
       return this.endHandler();
     } else {
       this.setState({
@@ -93,13 +94,14 @@ class App extends Component {
 
   // handler to start the game directly from modal
   playAgain = () => {
+    this.startHandler();
+    this.randomCircle();
     clearInterval(this.state.timer);
     this.setState({
       showGameOver: false,
       score: 0,
       rounds: 0
     });
-    this.startHandler();
   }
 
   // handler to end the game
@@ -110,6 +112,7 @@ class App extends Component {
     clearInterval(this.state.timer);
     this.setState({
       showGameOver: true,
+      current: 0
     });
   }
   closeHandler = () => {
