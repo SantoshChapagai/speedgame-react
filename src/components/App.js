@@ -6,10 +6,10 @@ import GameOver from './GameOver';
 import './Circle.css'
 
 // importing sounds
-import meow from './sounds/meow.mp3';
-import click from './sounds/click.mp3';
-import start from './sounds/start.mp3';
-import end from './sounds/end.mp3';
+import meow from '../sounds/meow.mp3';
+import click from '../sounds/click.mp3';
+import start from '../sounds/start.mp3';
+import end from '../sounds/end.mp3';
 
 // Adding sounds to handler
 const meowed = new Audio(meow);
