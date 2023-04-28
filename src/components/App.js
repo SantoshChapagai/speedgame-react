@@ -95,14 +95,15 @@ class App extends Component {
 
   // handler to start the game directly from modal
   playAgain = () => {
+    this.randomCircle();
     this.startHandler();
+    started.pause();
     clearInterval(this.state.timer);
     this.setState({
       showGameOver: false,
       score: 0,
       rounds: 0
     });
-    this.randomCircle();
   }
 
   // handler to end the game
