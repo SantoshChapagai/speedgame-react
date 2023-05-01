@@ -12,7 +12,7 @@
 
 
 ### Game overview
-- Game has three levels i.e., easy, small, and hard with four, five, and six circles respectively.
+- Game has three levels i.e., easy, medium, and hard with four, five, and six circles respectively.
 - Start button to play game appears after selecting level.
 - The current level and score appear after pressing start button.
 - The end bottom to end the game visible after game started.
