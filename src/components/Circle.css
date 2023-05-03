@@ -35,3 +35,10 @@
 .circle.active {
   background: url('../images/cat.jpeg') no-repeat center center/cover;
 }
+
+@media(max-width:576px) {
+  .circle {
+    height: 100px;
+    width: 100px;
+  }
+}

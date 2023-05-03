@@ -33,3 +33,10 @@
   right: 35%;
   width: 30%;
 }
+
+@media(max-width:576px) {
+  .play {
+    width: 40%;
+    right: 25%;
+  }
+}
