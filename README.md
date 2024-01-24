@@ -10,6 +10,9 @@
 ### screen-shot
 ![](./src/images/game.jpeg)
 
+### live link to play game
+- https://public.bc.fi/s2300121/speedgame-react/
+
 
 ### Game overview
 - Game has three levels i.e., easy, medium, and hard with four, five, and six circles respectively.
